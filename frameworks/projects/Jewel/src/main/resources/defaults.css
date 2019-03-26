@@ -3902,6 +3902,7 @@ j|BarTitle {
   flex: 1 0;
 }
 .jewel.next, .jewel.previous {
+  z-index: 1;
   height: 100%;
   align-items: center;
   justify-content: center;
@@ -3910,6 +3911,28 @@ j|BarTitle {
 .jewel .wizardcontent {
   height: 100%;
   flex-grow: 100;
+}
+.jewel .wizardpage {
+  position: absolute;
+  transition: transform, 0.5s;
+  left: 80px;
+  right: 80px;
+  top: 0px;
+  bottom: 0px;
+  border: 1px solid red;
+  transition: transform, 0.5s;
+  transform: translateX(100%);
+  opacity: 0;
+}
+.jewel .wizardpage.is-selected {
+  transform: translateX(0%);
+  opacity: 1;
+}
+.jewel .wizardpage.moveLeftFromCenter {
+  transform: translateX(-100%);
+}
+.jewel .wizardpage.moveRightFromCenter {
+  transform: translateX(100%);
 }
 
 j|Wizard {

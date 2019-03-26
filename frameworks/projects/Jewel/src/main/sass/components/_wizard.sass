@@ -36,6 +36,7 @@
         flex: 1 0
 
     &.next, &.previous
+        z-index: 1
         height: 100%
         align-items: center
         justify-content: center
@@ -47,6 +48,40 @@
     .wizardcontent
         height: 100%
         flex-grow: 100
+        // position: relative
+    .wizardpage
+        position: absolute
+        transition: transform, .5s
+        left: 80px
+        right: 80px
+        top: 0px
+        bottom: 0px
+        // border: 1px solid red
+        transition: transform, .5s
+        transform: translateX(100%)
+        opacity: 0
+
+        &.is-selected
+            transform: translateX(0%)
+            opacity: 1
+
+        &.moveLeftFromCenter
+            transform: translateX(-100%)
+            
+        // &.moveCenterFromRight
+        //     transform: translateX(0%)
+        
+        &.moveRightFromCenter
+            transform: translateX(100%)
+            
+        // &.moveCenterFromLeft
+        //     transform: translateX(0%)
+        
+        // &.moveRightFromCenter
+        //     transform: translateX(100%)
+        //     &.is-active
+        //         transform: translateX(0)
+
 
 j|Wizard
     IBeadView: ClassReference("org.apache.royale.jewel.beads.views.WizardView")
