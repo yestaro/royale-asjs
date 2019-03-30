@@ -3902,7 +3902,8 @@ j|BarTitle {
   width: 100%;
   height: 100%;
 }
-.jewel .precontent {
+.jewel.precontent {
+  position: relative;
   width: 100%;
   flex: 1 0;
 }
@@ -3913,30 +3914,33 @@ j|BarTitle {
   justify-content: center;
   cursor: pointer;
 }
-.jewel .wizardcontent {
+.jewel.wizardcontent {
   height: 100%;
   flex-grow: 100;
+  position: inherit;
 }
-.jewel .wizardpage {
+.jewel.wizardpage {
+  display: flex;
   position: absolute;
-  transition: transform, 0.5s;
-  left: 80px;
-  right: 80px;
-  top: 0px;
-  bottom: 0px;
-  border: 1px solid red;
+  left: 73px;
+  right: 73px;
+  top: 63px;
+  bottom: 20px;
   transition: transform, 0.5s;
   transform: translateX(100%);
   opacity: 0;
 }
-.jewel .wizardpage.is-selected {
+.jewel.wizardpage > * {
+  width: 100%;
+}
+.jewel.wizardpage.is-selected {
   transform: translateX(0%);
   opacity: 1;
 }
-.jewel .wizardpage.moveLeftFromCenter {
+.jewel.wizardpage.moveLeftFromCenter {
   transform: translateX(-100%);
 }
-.jewel .wizardpage.moveRightFromCenter {
+.jewel.wizardpage.moveRightFromCenter {
   transform: translateX(100%);
 }
 
@@ -3955,8 +3959,6 @@ j|WizardPage {
 j|WizardContent {
   IBeadView: ClassReference("org.apache.royale.html.beads.ContainerView");
   IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.NullLayout");
-  IViewport: ClassReference("org.apache.royale.jewel.supportClasses.scrollbar.ScrollingViewport");
-  IViewportModel: ClassReference("org.apache.royale.html.beads.models.ViewportModel");
 }
 
 .jewel.main {

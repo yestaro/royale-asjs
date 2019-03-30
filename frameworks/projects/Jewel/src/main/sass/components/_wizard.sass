@@ -31,7 +31,8 @@
         &.wizardTitle
             
 
-    .precontent
+    &.precontent
+        position: relative
         width: 100%
         flex: 1 0
 
@@ -45,43 +46,42 @@
             
         .jewel.button
 
-    .wizardcontent
+    &.wizardcontent
         height: 100%
         flex-grow: 100
-        // position: relative
-    .wizardpage
+        position: inherit
+
+    &.wizardpage
+        display: flex
         position: absolute
-        transition: transform, .5s
-        left: 80px
-        right: 80px
+        
+        left: 0px
+        right: 0px
         top: 0px
         bottom: 0px
+        // left: 0
+        // right: 0
+        // top: 30px
+        // bottom: 0
         // border: 1px solid red
         transition: transform, .5s
         transform: translateX(100%)
         opacity: 0
 
+        > *
+            width: 100%
+            // flex: 0 0 auto
+
         &.is-selected
             transform: translateX(0%)
             opacity: 1
+        &.scrollable
 
         &.moveLeftFromCenter
             transform: translateX(-100%)
             
-        // &.moveCenterFromRight
-        //     transform: translateX(0%)
-        
         &.moveRightFromCenter
             transform: translateX(100%)
-            
-        // &.moveCenterFromLeft
-        //     transform: translateX(0%)
-        
-        // &.moveRightFromCenter
-        //     transform: translateX(100%)
-        //     &.is-active
-        //         transform: translateX(0)
-
 
 j|Wizard
     IBeadView: ClassReference("org.apache.royale.jewel.beads.views.WizardView")
@@ -121,5 +121,5 @@ j|WizardPage
 j|WizardContent
     IBeadView: ClassReference("org.apache.royale.html.beads.ContainerView")
     IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.NullLayout")
-    IViewport: ClassReference("org.apache.royale.jewel.supportClasses.scrollbar.ScrollingViewport")
-    IViewportModel: ClassReference("org.apache.royale.html.beads.models.ViewportModel")
+    // IViewport: ClassReference("org.apache.royale.jewel.supportClasses.scrollbar.ScrollingViewport")
+    // IViewportModel: ClassReference("org.apache.royale.html.beads.models.ViewportModel")
