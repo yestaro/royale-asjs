@@ -125,7 +125,7 @@ limitations under the License.
 					<j:WizardStep name="page5" previousStep="page4" stepLabel="Page 5"/>
 				</views:step>
 
-				<j:Grid>
+				<j:ScrollableGrid>
 					<j:GridCell desktopNumerator="1" desktopDenominator="1"
 								tabletNumerator="1" tabletDenominator="1"
 								phoneNumerator="1" phoneDenominator="1">
@@ -139,7 +139,7 @@ limitations under the License.
 
 	Nam massa ante, hendrerit quis sodales eu, auctor eu quam. Quisque ullamcorper vitae est non volutpat. Proin porta metus in purus pharetra, vel lobortis massa efficitur. Proin consequat metus sit amet ipsum consectetur, vitae mollis neque imperdiet. Maecenas condimentum, nulla vel placerat interdum, eros neque mollis dui, non cursus orci turpis eget ipsum. Nulla non velit at velit laoreet finibus. Pellentesque non consequat sapien. Cras et porttitor lectus. Aliquam ultricies rhoncus sem, sed pharetra libero tempus ac. Aenean nec rhoncus neque. Sed ornare tincidunt bibendum. Sed venenatis consectetur porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla eget tincidunt mauris."/>
 					</j:GridCell>
-				</j:Grid>
+				</j:ScrollableGrid>
 
 			</j:WizardPage>
 		</j:Wizard>
