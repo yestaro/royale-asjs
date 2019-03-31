@@ -128,16 +128,10 @@ package org.apache.royale.jewel
 		{
 			var model:WizardModel = (event.target as Wizard).getBeadByType(WizardModel) as WizardModel;
 
-				// step.page.removeClass("moveLeftFromCenter");
-			// step.page.removeClass("moveRightFromCenter");
-				// step.page.removeClass("moveCenterFromRight");
-			// step.page.removeClass("moveCenterFromLeft");
-
 			if(model.currentStep.name == step.name)
 			{
 				dispatchEvent(new Event("exitPage"));
 				exitPage();
-				step.page.removeClass("moveCenterFromRight");
 				step.page.addClass("moveRightFromCenter");
 			}
 			if(model.currentStep.previousStep == step.name)
@@ -147,7 +141,6 @@ package org.apache.royale.jewel
 				dispatchEvent(new Event("enterPage"));
 				enterPage();
 				step.page.removeClass("moveLeftFromCenter");
-				step.page.addClass("moveCenterFromLeft");
 			}
 		}
 
@@ -166,16 +159,10 @@ package org.apache.royale.jewel
 		{
 			var model:WizardModel = (event.target as Wizard).getBeadByType(WizardModel) as WizardModel;
 			
-			// step.page.removeClass("moveLeftFromCenter");
-			// step.page.removeClass("moveRightFromCenter");
-			// step.page.removeClass("moveCenterFromRight");
-			// step.page.removeClass("moveCenterFromLeft");
-			
 			if(model.currentStep.name == step.name)
 			{
 				dispatchEvent(new Event("exitPage"));
 				exitPage();
-				step.page.removeClass("moveCenterFromLeft");
 				step.page.addClass("moveLeftFromCenter");
 			}
 			if(model.currentStep.nextStep == step.name)
@@ -185,7 +172,6 @@ package org.apache.royale.jewel
 				dispatchEvent(new Event("enterPage"));
 				enterPage();
 				step.page.removeClass("moveRightFromCenter");
-				step.page.addClass("moveCenterFromRight");
 			}
 		}
 

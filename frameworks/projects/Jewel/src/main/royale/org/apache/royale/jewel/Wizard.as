@@ -86,6 +86,8 @@ package org.apache.royale.jewel
 		 */
 		public function showPage(stepName:String):void
 		{
+			currentStep.page.removeClass("moveLeftFromCenter");
+			currentStep.page.removeClass("moveRightFromCenter");
 			content.selectedContent = stepName;
 		}
 
