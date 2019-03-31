@@ -3922,10 +3922,10 @@ j|BarTitle {
 .jewel.wizardpage {
   display: flex;
   position: absolute;
-  left: 73px;
-  right: 73px;
-  top: 63px;
-  bottom: 20px;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
   transition: transform, 0.5s;
   transform: translateX(100%);
   opacity: 0;
