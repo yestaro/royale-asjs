@@ -4,7 +4,7 @@
 //  contributor license agreements.  See the NOTICE file distributed with
 //  this work for additional information regarding copyright ownership.
 //  The ASF licenses this file to You under the Apache License, Version 2.0
-//  (the "Licens"); you may not use this file except in compliance with
+//  (the "License"); you may not use this file except in compliance with
 //  the License.  You may obtain a copy of the License at
 //
 //      http://www.apache.org/licenses/LICENSE-2.0
@@ -16,34 +16,30 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package org.apache.royale.jewel.supportClasses.util
+package org.apache.royale.utils.net
 {
-    /**
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.6
-	 *  @productversion Royale 0.9.4
-     *
-     *  Utility function to get a label string from a value object
-     */
-    public function getLabelFromData(obj:Object, data:Object):String
-    {
-        // slightly more code, but we bail early if it's a string which is often
-        if(!data) return "";
-        
-        if (!(data is String))
-        {
-            if (obj["labelField"])
-                return String(data[obj["labelField"]]);
-
-            if (obj["dataField"])
-                return String(data[obj["dataField"]]);
-            
-            if ("label" in data)
-                return String(data["label"]);
-        }
-
-        return String(data);
-
+	import org.apache.royale.utils.IBinaryDataOutput;
+    COMPILE::SWF{
+        import flash.utils.IDataOutput
     }
+
+    /**
+     * initial work on replacement for flash.utils.IDataOutput
+     */
+	COMPILE::JS
+    public interface IDataOutput extends IBinaryDataOutput
+    {
+
+        function writeObject(object:*):void;
+    }
+	
+	
+	COMPILE::SWF
+	public interface IDataOutput extends IBinaryDataOutput, flash.utils.IDataOutput
+	{
+		/*function get objectEncoding():uint;
+		function set objectEncoding(value:uint):void;
+		function writeObject(object:*):void;*/
+	}
+
 }

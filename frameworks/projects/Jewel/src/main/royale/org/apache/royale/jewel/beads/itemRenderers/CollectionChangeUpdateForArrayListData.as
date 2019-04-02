@@ -20,15 +20,12 @@ package org.apache.royale.jewel.beads.itemRenderers
 {
 	import org.apache.royale.core.IBead;
 	import org.apache.royale.core.IDataProviderModel;
-    import org.apache.royale.core.IItemRendererParent;
-	import org.apache.royale.core.ISelectableItemRenderer;
 	import org.apache.royale.core.ISelectionModel;
 	import org.apache.royale.core.IStrand;
-	import org.apache.royale.core.IStrandWithModelView;
 	import org.apache.royale.events.CollectionEvent;
 	import org.apache.royale.events.Event;
 	import org.apache.royale.events.IEventDispatcher;
-	import org.apache.royale.html.beads.IListView;
+
 
     /**
 	 *  Handles the update of an itemRenderer in a List component once the corresponding
@@ -39,7 +36,7 @@ package org.apache.royale.jewel.beads.itemRenderers
 	 *  @playerversion AIR 2.6
 	 *  @productversion Royale 0.9.4
 	 */
-	public class UpdateListItemRendererForArrayListData implements IBead
+	public class CollectionChangeUpdateForArrayListData implements IBead
 	{
 		/**
 		 *  Constructor
@@ -49,7 +46,7 @@ package org.apache.royale.jewel.beads.itemRenderers
 		 *  @playerversion AIR 2.6
 		 *  @productversion Royale 0.9.4
 		 */
-		public function UpdateListItemRendererForArrayListData()
+		public function CollectionChangeUpdateForArrayListData()
 		{
 		}
 
@@ -95,26 +92,28 @@ package org.apache.royale.jewel.beads.itemRenderers
 		}
 
 		private var dp:IEventDispatcher;
+		private var ignoreDPChange:Boolean;
 		/**
 		 * @private
 		 * @royaleignorecoercion org.apache.royale.events.IEventDispatcher
 		 */
 		protected function dataProviderChangeHandler(event:Event):void
 		{
+			if (ignoreDPChange) return;
 			if(dp)
 			{
-				dp.removeEventListener(CollectionEvent.ITEM_UPDATED, handleItemUpdated);
+				dp.removeEventListener(CollectionEvent.COLLECTION_CHANGED, handleCollectionChanged);
 			}
 			dp = dataProviderModel.dataProvider as IEventDispatcher;
 			if (!dp)
 				return;
 
-			// listen for individual items being updated in the future.
-			dp.addEventListener(CollectionEvent.ITEM_UPDATED, handleItemUpdated);
+			// listen for COLLECTION_CHANGED in the future.
+			dp.addEventListener(CollectionEvent.COLLECTION_CHANGED, handleCollectionChanged);
 		}
 
 		/**
-		 *  Handles the itemUpdated event by updating the item.
+		 *  Handles the COLLECTION_CHANGED event by refreshing the full set of renderers.
 		 *
 		 *  @langversion 3.0
 		 *  @playerversion Flash 10.2
@@ -123,19 +122,12 @@ package org.apache.royale.jewel.beads.itemRenderers
 		 *  @royaleignorecoercion org.apache.royale.events.IEventDispatcher
          *  @royaleignorecoercion org.apache.royale.core.ISelectionModel
 		 */
-		protected function handleItemUpdated(event:CollectionEvent):void
+		protected function handleCollectionChanged(event:CollectionEvent):void
 		{
-            var ir:ISelectableItemRenderer = itemRendererParent.getItemRendererAt(event.index) as ISelectableItemRenderer;
-
-            setData(ir, event.item, event.index);
-
-            if (event.index == ISelectionModel(_dataProviderModel).selectedIndex) {
-				//manually trigger a selection change, even if there was actually none.
-				//This causes selection-based bindings to work
-                IEventDispatcher(_dataProviderModel).dispatchEvent(new Event('selectionChanged'));
-            }
-
-			(_strand as IEventDispatcher).dispatchEvent(new Event("layoutNeeded"));
+			ignoreDPChange = true;
+			//simulate a dataProvider change (full renderer refresh)
+			_dataProviderModel.dispatchEvent(new Event('dataProviderChanged'));
+			ignoreDPChange = false;
 		}
 
 		private var _dataProviderModel:IDataProviderModel;
@@ -156,41 +148,6 @@ package org.apache.royale.jewel.beads.itemRenderers
 			}
 			return _dataProviderModel;
 		}
-
-		private var _itemRendererParent: IItemRendererParent;
-
-		/**
-		 *  The org.apache.royale.core.IItemRendererParent used
-		 *  to generate instances of item renderers.
-		 *
-		 *  @langversion 3.0
-		 *  @playerversion Flash 10.2
-		 *  @playerversion AIR 2.6
-		 *  @productversion Royale 0.9.4
-		 *  @royaleignorecoercion org.apache.royale.core.IUIBase
-		 */
-		public function get itemRendererParent():IItemRendererParent
-		{
-			if (_itemRendererParent == null) {
-				var view:IListView = (_strand as IStrandWithModelView).view as IListView;
-				_itemRendererParent = view.dataGroup;
-			}
-			return _itemRendererParent;
-		}
-
-        /**
-         * @private
-         */
-        protected function setData(itemRenderer:ISelectableItemRenderer, data:Object, index:int):void
-        {
-            itemRenderer.index = index;
-			var forceDataChangeEvent:Boolean = (itemRenderer.data == data);
-			
-			itemRenderer.data = data;
-			
-			if (forceDataChangeEvent) {
-				itemRenderer.dispatchEvent(new Event('dataChange'));
-			}
-        }
+		
 	}
 }

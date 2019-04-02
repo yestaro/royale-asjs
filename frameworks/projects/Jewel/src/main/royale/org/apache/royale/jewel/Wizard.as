@@ -78,17 +78,22 @@ package org.apache.royale.jewel
 		}
 
 		/**
-		 * show a page by id, but does not update currentStep
+		 * Update currentStep by name finding the appropiate step
 		 * 
-		 * @param steName, that is the "id" of the content (the WizardPage) to activate
+		 * @param stepName, that is the "id" of the content (the WizardPage) to activate
 		 * 
 		 * @see org.apache.royale.jewel.WizardContent.selectedContent
 		 */
 		public function showPage(stepName:String):void
 		{
-			currentStep.page.removeClass("moveLeftFromCenter");
-			currentStep.page.removeClass("moveRightFromCenter");
-			content.selectedContent = stepName;
+			var step:WizardStep = findStepByName(stepName);
+			if (step) {
+				currentStep.page.removeClass("moveLeftFromCenter");
+				currentStep.page.removeClass("moveRightFromCenter");
+				currentStep = step;
+			} else {
+				throw new Error('Unknown wizard step:'+ stepName)
+			}
 		}
 
 		public function findStepByName(name:String):WizardStep

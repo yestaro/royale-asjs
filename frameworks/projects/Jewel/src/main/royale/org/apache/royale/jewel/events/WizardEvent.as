@@ -16,28 +16,27 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package org.apache.royale.net.utils
+package org.apache.royale.jewel.events
 {
-    COMPILE::SWF{
-        import flash.utils.IExternalizable;
-    }
-    
-    /**
-     * replacement for flash.utils.IExternalizable
-     */
-    COMPILE::JS
-    public interface IExternalizable
-    {
-        function readExternal(input:IDataInput):void;
-        
-        function writeExternal(output:IDataOutput):void;
-    }
-	
-	COMPILE::SWF
-	public interface IExternalizable extends flash.utils.IExternalizable
+	import org.apache.royale.events.Event;
+
+	/**
+	 * Programmatic (not user/UI) based wizard navigation events.
+	 */
+	public class WizardEvent extends Event
 	{
-		/*function readExternal(input:IDataInput):void;
-		
-		function writeExternal(output:IDataOutput):void;*/
+		public static const REQUEST_NAVIGATE_TO_STEP:String = "requestNavigateToStep";
+		public static const REQUEST_NAVIGATE_NEXT_STEP:String = "requestNavigateNextStep";
+		public static const REQUEST_NAVIGATE_PREVIOUS_STEP:String = "requestNavigatePreviousStep";
+
+		/**
+		 * @royalesuppresspublicvarwarning
+		 */
+		public var stepName:String;
+
+		public function WizardEvent(type:String, stepName:String = null) {
+			super(type);
+			this.stepName = stepName;
+		}
 	}
 }

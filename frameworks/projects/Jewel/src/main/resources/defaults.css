@@ -3915,10 +3915,9 @@ j|BarTitle {
   cursor: pointer;
 }
 .jewel.wizardcontent {
-  width: 100%;
   height: 100%;
   flex-grow: 100;
-  position: relative;
+  position: inherit;
 }
 .jewel.wizardpage {
   display: flex;
@@ -3927,7 +3926,6 @@ j|BarTitle {
   right: 0px;
   top: 0px;
   bottom: 0px;
-  border: 1px solid red;
   transition: transform, 0.5s;
   transform: translateX(100%);
   opacity: 0;
